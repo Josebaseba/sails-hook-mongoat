@@ -23,7 +23,7 @@ To force the indexes creations on each lift: https://github.com/Josebaseba/sails
 
 Just go to the models file and set:
 
-```javscript
+```javascript
 module.exports.models = {
 
   createIndexes: true, // Generate the indexes in each lift
