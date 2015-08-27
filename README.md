@@ -19,7 +19,26 @@ In the config.model set createIndexes attribute as true
 ```javascript
   config.model.createIndexes = true
 ```
-To force the indexes creations on each lift
+To force the indexes creations on each lift: https://github.com/Josebaseba/sails-hook-mongoat/blob/master/index.js#L45
+
+Just go to the models file and set:
+
+```javscript
+module.exports.models = {
+
+  createIndexes: true, // Generate the indexes in each lift
+
+  //etc...
+
+  //connection: 'mongodb-development'
+
+  migrate:"safe",
+
+  schema: true
+
+};
+```
+
 ## Examples ##
 
 **Creating a 'expires after' index**
