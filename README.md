@@ -84,10 +84,41 @@ module.exports = {
     {
       attributes: {
         event_id: -1,    // desc
-        match: 1         // asc
+        match_id: 1      // asc
       },
       options: {
         unique: true
+      }
+    }
+  ]
+};
+```
+
+**Creating a different indexes**
+```javascript
+// MY EVENTS MODEL
+module.exports = {
+  attributes: {
+    event_id: {
+      type: 'integer',
+      required: true
+    },
+    match_id: {
+      type: 'integer',
+      required: true
+    }
+  },
+  indexes: [
+    {
+      attributes: {
+        match_id: 1   // asc
+      },
+      options: {
+        unique: true
+      }
+    }, {
+      attributes: {
+        match_id: 1   // asc
       }
     }
   ]
