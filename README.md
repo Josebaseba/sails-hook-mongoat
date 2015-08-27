@@ -15,6 +15,11 @@ Index properties:
  - **attributes** - an object with the attributes to index (can also be text indexes)
  - **options** (optional) - index options (see [Mongo Index Options](http://docs.mongodb.org/manual/reference/method/db.collection.createIndex/#options-for-all-index-types))
 
+In the config.model set createIndexes attribute as true
+```javascript
+  config.model.createIndexes = true
+```
+To force the indexes creations on each lift
 ## Examples ##
 
 **Creating a 'expires after' index**
