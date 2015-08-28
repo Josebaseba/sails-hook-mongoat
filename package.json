@@ -1,6 +1,6 @@
 {
   "name": "sails-hook-mongoat",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Provides advanced mongo indexing options for sails models that use the sails-mongo adapter.",
   "main": "index.js",
   "sails": {
