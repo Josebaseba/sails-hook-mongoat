@@ -54,12 +54,14 @@ module.exports = function (sails) {
 
       sails.after('hook:orm:loaded', function () {
         sails.log.verbose('sails-hook-mongoat started.');
-        async.each(Object.keys(sails.models), getIndexes, function runModels() {
-          async.each(indexes, function createEachIndex(index, next) {
-            createIndex(index.model, index.attributes, index.options || {}, next);
-          }, cb);
-        });
+        async.each(Object.keys(sails.models), getIndexes, startIndexCreation);
       });
+
+      var startIndexCreation = function () {
+        async.each(indexes, function createEachIndex(index, next) {
+          createIndex(index.model, index.attributes, index.options || {}, next);
+        }, cb);
+      };
 
     }
 
