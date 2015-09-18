@@ -144,7 +144,3 @@ module.exports = {
 
 Fork the repo, make your changes and submit a pull request.
 
-
-## Todo ##
-
- - Options & Attribute validations (?)
