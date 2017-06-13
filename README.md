@@ -2,7 +2,7 @@ sails-hook-mongoat
 -------------------
 
 
-Provides advanced mongo indexing options for sails.js models that use the sails-mongo adapter.
+Provides advanced mongo indexing options for sails.js models that use the sails-mongo adapter. Working with sails1, check previuos version to work with sails v0.10, v0.11 and v0.12: https://github.com/Josebaseba/sails-hook-mongoat/blob/81d6783be379ccb6e86e396d173f4659ab16abdd/index.js
 
 ## Usage ##
 
@@ -15,12 +15,6 @@ To use this forked repository clone this repository inside the `api/hooks/` fold
   git clone https://github.com/Josebaseba/sails-hook-mongoat
 
 ```
-
-To use the [original repository](https://github.com/invertase/sails-hook-mongoat) just run (In sails v0.11 >=):
-
-    npm i sails-hook-mongoat
-
-In v0.10.5 <= clone the repository in hooks folder.
 
 Then simply add an 'indexes' array property to your sails model(s) that you want to add custom indexers on.  This contains all your indexes.
 
