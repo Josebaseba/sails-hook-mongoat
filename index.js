@@ -3,7 +3,7 @@ module.exports = function (sails) {
   // store created indexes
   var indexes = [];
 
-  var getIndexes = function (key, done) {
+  var getIndexes = function (key) {
     var model = sails.models[key];
     // check for indexes
     if (_.isArray(model.indexes) && model.indexes.length > 0) {
@@ -12,28 +12,23 @@ module.exports = function (sails) {
       });
       indexes = _.union(indexes, model.indexes);
     }
-    return done();
   };
 
   var createIndex = function (modelName, fields, options, done) {
-    var model = sails.models[modelName];
-    if (!model) return done();
+    var Model = sails.models[modelName];
+    if (!Model) return done();
 
     // check model adapter is sails-mongo by checking first connections adapter
-    var connection = model
-                      .adapter
-                      .connections[Object.keys(model.adapter.connections)[0]];
+    if (Model._adapter.identity !== 'sails-mongo') return done();
 
-    if (connection.config.adapter !== 'sails-mongo') return done();
-    model.native(function (err, collection) {
-      collection.ensureIndex(fields, options, function (err) {
-        if (err) {
-          sails.log.error('Mongoat: Error creating index', modelName, err);
-          return done(err);
-        }
-        sails.log.verbose('Mongoat: An index was created for model', modelName);
-        return done();
-      });
+    var db = Model.getDatastore().manager;
+    db.collection(Model.tableName).createIndex(fields, options, function (err) {
+      if (err) {
+        sails.log.error('Mongoat: Error creating index', modelName, err);
+        return done(err);
+      }
+      sails.log.verbose('Mongoat: An index was created for model', modelName);
+      return done();
     });
   };
 
@@ -54,11 +49,12 @@ module.exports = function (sails) {
 
       sails.after('hook:orm:loaded', function () {
         sails.log.verbose('sails-hook-mongoat started.');
-        async.each(Object.keys(sails.models), getIndexes, startIndexCreation);
+        _.each(Object.keys(sails.models), getIndexes);
+        startIndexCreation();
       });
 
       var startIndexCreation = function () {
-        async.each(indexes, function createEachIndex(index, next) {
+        async.each(indexes, function createEachIndex(index, next, cb) {
           createIndex(index.model, index.attributes, index.options || {}, next);
         }, cb);
       };
