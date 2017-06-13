@@ -54,7 +54,7 @@ module.exports = function (sails) {
       });
 
       var startIndexCreation = function () {
-        async.each(indexes, function createEachIndex(index, next, cb) {
+        async.each(indexes, function createEachIndex(index, next) {
           createIndex(index.model, index.attributes, index.options || {}, next);
         }, cb);
       };
