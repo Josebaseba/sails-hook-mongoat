@@ -33,6 +33,12 @@ module.exports = function (sails) {
   };
 
   return {
+    
+    defaults: {
+      __configKey__: {
+        _hookTimeout: 60 * 60 * 1000
+      }
+    },
 
     initialize: function (cb) {
       // Don't call it if we don't force it with config.models.createIndexes
